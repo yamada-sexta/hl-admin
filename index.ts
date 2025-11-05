@@ -1,15 +1,16 @@
 #!/usr/bin/env bun
 import { $ } from "bun";
-
+import { CronJob } from 'cron';
 await $`echo "Initializing Bun script..."`;
 
-async function loop(){
-    await $`git pull`
+const cronStr = Bun.env.CRON_SCHEDULE || '*/5 * * * * *';
+
+async function task() {
+    await $`git pull`;
 }
 
-async function main() {
-    await loop();
-    setInterval(loop, 5000);
-}
+const job = new CronJob(cronStr, task);
 
-main();
+job.start();
+
+console.log(`Cron job started: ${cronStr}`);
