@@ -3,7 +3,7 @@ import { $ } from "bun";
 import { CronJob } from 'cron';
 await $`echo "Initializing Bun script..."`;
 
-const cronStr = Bun.env.CRON_SCHEDULE || '*/5 * * * * *';
+const cronStr = Bun.env.CRON_SCHEDULE || '5 * * * * *';
 
 async function task() {
     await $`git pull`;
